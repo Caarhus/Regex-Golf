@@ -1,0 +1,5 @@
+bases(Start, End) :-
+	format('~tDecimal~t~10|~tHex~t~20|~tBinary~t~35|\n'),
+	between(Start, End, N),
+	format('~t~d~6|~t~16R~16|~t~2r~30|\n', [N, N, N]), fail.
+bases(Start, End).
