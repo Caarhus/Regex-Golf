@@ -1,0 +1,36 @@
+def isInt(s)
+	!!(s =~ /^\d+$/)
+end
+
+def value(s)
+	if isInt(s)
+		s.to_i
+	else
+		$vars[s]
+	end
+end
+		
+
+def evaluate(x)
+	result = value(x.shift)
+	
+	while x.size > 0
+		result = result.send(x.shift, value(x.shift))
+	end
+	result
+end
+
+
+
+$vars = Hash.new(0)
+
+while (print "? "; line = gets)
+	line = line.chomp.scan(/\w+|\W+/)
+	
+	if line[1] =~ /=/
+		$vars[line[0]] = (evaluate line[2, line.size])
+		puts $vars[line[0]]
+	else
+		puts evaluate line
+	end
+end
